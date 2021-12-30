@@ -1,2 +1,7 @@
 # Ignora la carpeta node_modules
 node_modules
+package-lock.json
+.env
+dist
+dist-ssr
+*.local
