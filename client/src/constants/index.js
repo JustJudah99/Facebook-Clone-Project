@@ -166,15 +166,5 @@ export const links = [
     to: '/help/?ref=pf',
     title: 'Visita nuestro servicio de ayuda.',
     children: 'Ayuda'
-  },
-  {
-    to: '/settings',
-    title: 'Ve y edita tu configuración de Facebook.',
-    children: 'Configuración'
-  },
-  {
-    to: '/allactivity?privacy_source=activity_log_top_menu',
-    title: 'Ver tu registro de actividad',
-    children: 'Registro de actividad'
   }
 ]
