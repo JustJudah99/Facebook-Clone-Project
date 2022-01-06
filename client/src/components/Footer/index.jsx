@@ -28,6 +28,9 @@ const Footer = () => {
             ))}
           </ul>
         </div>
+        <div className="footer__copyright">
+          <span>Meta © 2022</span>
+        </div>
       </div>
     </footer>
   )
