@@ -1,0 +1,36 @@
+.loginform__wrapper {
+  width: 396px;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 24px;
+  padding-top: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.loginform__container,
+.loginform__container--less-padding,
+.loginform__container--margin-top,
+.loginform__separator {
+  text-align: center;
+}
+
+.loginform__container {
+  padding-top: 10px;
+}
+
+.loginform__container--less-padding {
+  padding-top: 6px;
+}
+
+.loginform__container--margin-top {
+  margin-top: 16px;
+}
+
+.loginform__separator {
+  box-sizing: content-box;
+  border-bottom: 1px solid #dadde1;
+  display: flex;
+  margin: 20px 0px;
+}

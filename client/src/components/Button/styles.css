@@ -1,0 +1,44 @@
+.button {
+  box-sizing: content-box;
+  border-radius: 6px;
+  font-size: 20px;
+  line-height: 48px;
+  padding: 0 16px;
+  width: 332px;
+}
+
+.button--primary {
+  background-color: #1877f2;
+}
+
+.button--primary:hover {
+  background-color: #166fe5;
+}
+
+.button--primary:active {
+  background-color: #29487d;
+  border-color: #29487d;
+}
+
+.button-link {
+  display: inline-block;
+  border-radius: 6px;
+  font-size: 17px;
+  line-height: 48px;
+  padding: 0 16px;
+}
+
+.button-link--primary {
+  color: #fff;
+  background-color: #42b72a;
+}
+
+.button-link--primary:active {
+  background-color: #2b9217;
+  border-color: #2b9217;
+}
+
+.button-link--primary:hover {
+  background-color: #36a420;
+  border-color: #36a420;
+}
