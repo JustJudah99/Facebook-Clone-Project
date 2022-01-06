@@ -1,0 +1,22 @@
+.input {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 6px 0;
+}
+
+.input__element {
+  box-sizing: content-box;
+  font-size: 17px;
+  padding: 14px 16px;
+  width: 330px;
+  border-radius: 6px;
+  border: 1px solid #dddfe2;
+  outline: none;
+}
+
+.input__element:focus {
+  border-color: #1877f2;
+  box-shadow: 0 0 0 2px #e7f3ff;
+  caret-color: #1877f2;
+}
