@@ -15,6 +15,7 @@
 .footer__list-languages-item {
   color: #8a8d91;
   padding-left: 10px;
+  line-height: 1.38;
 }
 
 .footer__list-content-item a:hover,
@@ -25,7 +26,6 @@
 
 .footer__list-languages-item:first-child {
   padding-left: 0;
-  line-height: 1.75;
 }
 
 .footer__list-languages-item:first-child:hover {
@@ -41,8 +41,9 @@
 }
 
 .footer__list-languages-item a {
-  height: 17px;
-  line-height: 17px;
+  display: inline-block;
+  height: 18px;
+  line-height: 18px;
   background-color: #f5f6f7;
   border: 1px solid #ccd0d5;
   padding: 0 8px;
