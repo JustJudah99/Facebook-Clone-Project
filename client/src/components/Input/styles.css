@@ -20,3 +20,45 @@
   box-shadow: 0 0 0 2px #e7f3ff;
   caret-color: #1877f2;
 }
+
+.input__wrapper {
+  position: relative;
+  width: 100%;
+  height: fit-content;
+}
+
+.input__btn-password {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  right: 0px;
+  width: 28px;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  cursor: pointer;
+  user-select: none;
+}
+
+.input__btn-password:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.input__btn-password:active {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.input__password--icon-eye,
+.input__password--icon-eye-off {
+  width: 16px;
+  aspect-ratio: 1;
+}
+.input__password--icon-eye {
+  background: url('https://static.xx.fbcdn.net/rsrc.php/v3/yk/r/swFqSxKYa5M.png');
+}
+
+.input__password--icon-eye-off {
+  background: url('https://static.xx.fbcdn.net/rsrc.php/v3/yZ/r/je5FEJkU1_K.png');
+}
