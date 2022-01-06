@@ -1,0 +1,35 @@
+{
+  "short_name": "Facebook",
+  "name": "Facebook",
+  "icons": [
+    {
+      "src": "https://static.xx.fbcdn.net/rsrc.php/v3/ys/r/EdXnHjzXA5W.png",
+      "sizes": "325x325",
+      "type": "image/png"
+    },
+    {
+      "src": "https://static.xx.fbcdn.net/rsrc.php/v3/yi/r/ctea_gkYuj3.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "https://static.xx.fbcdn.net/rsrc.php/v3/yc/r/j9WrD251LjG.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "https://static.xx.fbcdn.net/rsrc.php/v3/yv/r/54cMBAu8YEP.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "https://static.xx.fbcdn.net/rsrc.php/v3/yZ/r/tTklKS6ed2y.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#166fe5",
+  "background_color": "#ffffff"
+}
