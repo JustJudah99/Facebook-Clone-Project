@@ -23,13 +23,15 @@ const InputPassword = ({ labelValue, ...props }) => {
           {...props}
           type={show ? 'text' : 'password'}
         />
-        <span className="input__btn-password" onClick={() => setShow((prev) => !prev)}>
-          {show ? (
-            <div className="input__password--icon-eye" />
-          ) : (
-            <div className="input__password--icon-eye-off" />
-          )}
-        </span>
+        {props.value && props.value !== '' && (
+          <span className="input__btn-password" onClick={() => setShow((prev) => !prev)}>
+            {show ? (
+              <div className="input__password--icon-eye" />
+            ) : (
+              <div className="input__password--icon-eye-off" />
+            )}
+          </span>
+        )}
       </div>
     </div>
   )
