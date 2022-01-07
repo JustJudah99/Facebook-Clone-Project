@@ -108,6 +108,7 @@
 }
 
 .register-form__wrapper-input-label {
+  position: relative;
   color: #606770;
   font-size: 12px;
   font-weight: normal;
