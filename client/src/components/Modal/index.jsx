@@ -12,8 +12,8 @@ const ModalElement = ({ children }) => {
   )
 }
 
-const Modal = ({ children }) => {
-  return modalContainer
+const Modal = ({ children, visible = false }) => {
+  return modalContainer && visible
     ? ReactDOM.createPortal(<ModalElement>{children}</ModalElement>, modalContainer)
     : null
 }

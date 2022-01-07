@@ -12,11 +12,9 @@ const Home = () => {
       <section className="home__section">
         <LoginForm handleSignUp={() => setShowModal((prev) => !prev)} />
       </section>
-      {showModal && (
-        <Modal>
-          <RegisterForm />
-        </Modal>
-      )}
+      <Modal visible={showModal}>
+        <RegisterForm />
+      </Modal>
       <Footer />
     </div>
   )
