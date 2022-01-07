@@ -1,5 +1,7 @@
 import useField from '../../hooks/useField'
-import InputForm from './InputForm'
+import DateOfBirthField from './components/DateOfBirthField'
+import GenderField from './components/GenderField'
+import InputForm from './components/InputForm'
 import './styles.css'
 
 const RegisterForm = () => {
@@ -11,6 +13,14 @@ const RegisterForm = () => {
   return (
     <div className="register-form__wrapper">
       <div className="register-form__container">
+        <button className="register-form__btn-close">
+          <img
+            src="https://static.xx.fbcdn.net/rsrc.php/v3/y2/r/__geKiQnSG-.png"
+            alt="close-btn-form"
+            width="24"
+            height="24"
+          />
+        </button>
         <header className="register-form__header">
           <h3 className="register-form__title">Registrarte</h3>
           <p className="register-form__subtitle">Es rápido y fácil.</p>
@@ -22,6 +32,31 @@ const RegisterForm = () => {
           </section>
           <InputForm placeholder="Número de celular o correo electrónico" {...email} />
           <InputForm placeholder="Contraseña nueva" {...password} />
+          <DateOfBirthField />
+          <GenderField />
+          <div>
+            <p className="register-form__policies">
+              Al hacer clic en {'"Registrarte"'}, aceptas nuestras{' '}
+              <a href="/legal/terms/update" target="_blank" rel="nofollow">
+                Condiciones
+              </a>
+              , la{' '}
+              <a href="/about/privacy/update" target="_blank" rel="nofollow">
+                Política de datos{' '}
+              </a>
+              y la{' '}
+              <a href="/policies/cookies/" target="_blank" rel="nofollow">
+                Política de cookies
+              </a>
+              . Es posible que te enviemos notificaciones por SMS, que puedes desactivar cuando
+              quieras.
+            </p>
+          </div>
+          <div className="register-form__wrapper-btn">
+            <button className="register-form__btn-submit" type="submit">
+              Registrarse
+            </button>
+          </div>
         </form>
       </div>
     </div>
