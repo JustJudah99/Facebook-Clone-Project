@@ -34,7 +34,7 @@ const RegisterForm = ({ handleClose }) => {
           <InputForm placeholder="Contraseña nueva" {...password} />
           <DateOfBirthField />
           <GenderField />
-          <div>
+          <div className="register-form__policies-wrapper">
             <p className="register-form__policies">
               Al hacer clic en {'"Registrarte"'}, aceptas nuestras{' '}
               <a href="/legal/terms/update" target="_blank" rel="nofollow">

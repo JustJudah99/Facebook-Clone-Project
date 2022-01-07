@@ -1,7 +1,7 @@
 const ContainerField = ({ label = '', children }) => {
   return (
     <div className="register-form__wrapper-input-label">
-      <div>
+      <div className="register-form__container-input-label">
         {label}
         <a
           className="register-form__btn-question"

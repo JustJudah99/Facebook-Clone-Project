@@ -117,6 +117,10 @@
   margin-top: 2px;
 }
 
+.register-form__container-input-label {
+  margin-bottom: 2px;
+}
+
 .register-form__btn-question {
   display: inline-block;
   vertical-align: middle;
@@ -157,6 +161,10 @@
   padding-right: 20px;
 }
 
+.register-form__policies-wrapper {
+  position: relative;
+}
+
 .register-form__policies {
   color: #777;
   font-size: 11px;
@@ -182,6 +190,11 @@
   border-radius: 4px;
 }
 
+.register-form__checkbox > label,
+.register-form__checkbox > input {
+  cursor: pointer;
+}
+
 .register-form__checkbox > label {
   box-sizing: border-box;
   color: #1c1e21;
@@ -202,6 +215,7 @@
 }
 
 .register-form__wrapper-btn {
+  position: relative;
   text-align: center;
 }
 
@@ -218,7 +232,6 @@
   overflow: hidden;
   padding: 0 32px;
   text-shadow: none;
-
   margin-top: 10px;
   margin-bottom: 10px;
   min-width: 194px;
