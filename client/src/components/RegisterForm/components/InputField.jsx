@@ -1,4 +1,4 @@
-const InputForm = ({ ...props }) => {
+const InputField = ({ ...props }) => {
   return (
     <div className="register-form__input-wrapper">
       <div className="register-form__input-container">
@@ -8,4 +8,4 @@ const InputForm = ({ ...props }) => {
   )
 }
 
-export default InputForm
+export default InputField

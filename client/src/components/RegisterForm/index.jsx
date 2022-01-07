@@ -1,7 +1,7 @@
 import useField from '../../hooks/useField'
 import DateOfBirthField from './components/DateOfBirthField'
 import GenderField from './components/GenderField'
-import InputForm from './components/InputForm'
+import InputField from './components/InputField'
 import './styles.css'
 
 const RegisterForm = ({ handleClose }) => {
@@ -27,11 +27,11 @@ const RegisterForm = ({ handleClose }) => {
         </header>
         <form className="register-form__form">
           <section className="register-form__section-fields">
-            <InputForm placeholder="Nombre" {...name} />
-            <InputForm placeholder="Apellido" {...lastname} />
+            <InputField placeholder="Nombre" {...name} />
+            <InputField placeholder="Apellido" {...lastname} />
           </section>
-          <InputForm placeholder="Número de celular o correo electrónico" {...email} />
-          <InputForm placeholder="Contraseña nueva" {...password} />
+          <InputField placeholder="Número de celular o correo electrónico" {...email} />
+          <InputField placeholder="Contraseña nueva" {...password} />
           <DateOfBirthField />
           <GenderField />
           <div className="register-form__policies-wrapper">
