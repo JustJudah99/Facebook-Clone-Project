@@ -13,7 +13,7 @@ const Home = () => {
         <LoginForm handleSignUp={() => setShowModal((prev) => !prev)} />
       </section>
       <Modal visible={showModal}>
-        <RegisterForm />
+        <RegisterForm handleClose={() => setShowModal(false)} />
       </Modal>
       <Footer />
     </div>
