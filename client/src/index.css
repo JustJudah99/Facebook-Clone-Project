@@ -36,3 +36,8 @@ a {
 ul {
   list-style-type: none;
 }
+
+input {
+  outline: none;
+  color: #1c1e21;
+}
