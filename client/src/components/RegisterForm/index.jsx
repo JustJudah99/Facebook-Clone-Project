@@ -1,15 +1,16 @@
-import useField from '../../hooks/useField'
+import { useState } from 'react'
+import { regexs } from '../../constants'
 import DateOfBirthField from './components/DateOfBirthField'
 import GenderField from './components/GenderField'
 import InputField from './components/InputField'
-import PasswordField from './components/PasswordField'
+import PoliciesSection from './components/PoliciesSection'
 import './styles.css'
 
 const RegisterForm = ({ handleClose }) => {
-  const name = useField('text')
-  const lastname = useField('text')
-  const email = useField('email')
-  const password = useField('password')
+  const [name, setName] = useState({ type: 'text', value: '', validated: null })
+  const [lastname, setLastName] = useState({ type: 'text', value: '', validated: null })
+  const [email, setEmail] = useState({ type: 'email', value: '', validated: null })
+  const [password, setPassword] = useState({ type: 'password', value: '', validated: null })
 
   return (
     <div className="register-form__wrapper">
@@ -26,33 +27,52 @@ const RegisterForm = ({ handleClose }) => {
           <h3 className="register-form__title">Registrarte</h3>
           <p className="register-form__subtitle">Es rápido y fácil.</p>
         </header>
-        <form className="register-form__form">
+        <form
+          className="register-form__form"
+          onSubmit={(e) => {
+            e.preventDefault()
+          }}
+        >
           <section className="register-form__section-fields">
-            <InputField placeholder="Nombre" {...name} />
-            <InputField placeholder="Apellido" {...lastname} />
+            <InputField
+              state={name}
+              setState={setName}
+              posError="left"
+              messageError="¿Cómo te llamas?"
+              regex={regexs.name}
+              placeholder="Nombre"
+            />
+            <InputField
+              state={lastname}
+              setState={setLastName}
+              posError="bottom"
+              messageError="¿Cómo te llamas?"
+              regex={regexs.name}
+              placeholder="Apellido"
+            />
           </section>
-          <InputField placeholder="Número de celular o correo electrónico" {...email} />
-          <PasswordField placeholder="Contraseña nueva" {...password} />
+          <InputField
+            state={email}
+            setState={setEmail}
+            posError="left"
+            messageError="Ingresa un número de teléfono celular o una dirección de correo electrónico válidos."
+            regex={regexs.email}
+            placeholder="Número de celular o correo electrónico"
+          />
+          <InputField
+            state={password}
+            setState={setPassword}
+            posError="left"
+            messageError="Ingresa una combinación de al menos seis números, letras y signos de puntuación (como ! y &)."
+            regex={regexs.password}
+            placeholder="Contraseña nueva"
+            onClick={() => setPassword((prev) => ({ ...prev, type: 'text' }))}
+            onFocus={() => setPassword((prev) => ({ ...prev, type: 'text' }))}
+            onBlur={() => setPassword((prev) => ({ ...prev, type: 'password' }))}
+          />
           <DateOfBirthField />
           <GenderField />
-          <div className="register-form__policies-wrapper">
-            <p className="register-form__policies">
-              Al hacer clic en {'"Registrarte"'}, aceptas nuestras{' '}
-              <a href="/legal/terms/update" target="_blank" rel="nofollow">
-                Condiciones
-              </a>
-              , la{' '}
-              <a href="/about/privacy/update" target="_blank" rel="nofollow">
-                Política de datos{' '}
-              </a>
-              y la{' '}
-              <a href="/policies/cookies/" target="_blank" rel="nofollow">
-                Política de cookies
-              </a>
-              . Es posible que te enviemos notificaciones por SMS, que puedes desactivar cuando
-              quieras.
-            </p>
-          </div>
+          <PoliciesSection />
           <div className="register-form__wrapper-btn">
             <button className="register-form__btn-submit" type="submit">
               Registrarse
