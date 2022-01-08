@@ -6,12 +6,13 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  useQuery,
-  gql
+  HttpLink
 } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: 'http://localhost:8000',
+  link: new HttpLink({
+    uri: 'http://localhost:8000'
+  }),
   cache: new InMemoryCache()
 });
 

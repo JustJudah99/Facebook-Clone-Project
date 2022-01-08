@@ -1,5 +1,8 @@
-const { ApolloServer, gql } = require('apollo-server');
-require("dotenv").config();
+import { ApolloServer, gql, UserInputError } from 'apollo-server';
+import Dotenv from "dotenv";
+Dotenv.config();
+import resolvers from './graphql/resolvers.js';
+import typeDefs from './graphql/typeDefs.js';
 const port = process.env.APOLLO_SERVER_PORT || 8000;
 
 const User = [
@@ -14,26 +17,6 @@ const User = [
     password: "12345678"
   },
 ]
-
-const typeDefs = gql`
-  type User {
-    name: String!
-    email: String!
-    password: String!
-  }
-  type Query {
-    userCount: Int!
-    allUsers: [User]
-  }
-`
-
-
-const resolvers = {
-    Query: {
-      userCount: () => User.length,
-      allUsers: () => User
-    },
-};
 
 const server = new ApolloServer({ typeDefs, resolvers });
 

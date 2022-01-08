@@ -1,6 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -12,7 +13,8 @@
   "dependencies": {
     "apollo-server": "^3.6.1",
     "graphql": "^16.2.0",
-    "mongoose": "^6.1.5"
+    "mongoose": "^6.1.5",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "dotenv": "^10.0.0",
