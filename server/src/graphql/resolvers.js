@@ -1,5 +1,18 @@
 import { v1 as uuid } from "uuid";
 
+const User = [
+  {
+    name: "Robert",
+    email: "robert@admin.com",
+    password: "12345678"
+  },
+  {
+    name: "Brian",
+    email: "brian@admin.com",
+    password: "12345678"
+  },
+]
+
 const resolvers = {
     Query: {
       userCount: () => User.length,

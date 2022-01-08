@@ -1,5 +1,17 @@
 import { gql } from 'apollo-server';
 
+const User = [
+  {
+    name: "Robert",
+    email: "robert@admin.com",
+    password: "12345678"
+  },
+  {
+    name: "Brian",
+    email: "brian@admin.com",
+    password: "12345678"
+  },
+]
 const typeDefs = gql`
   enum YesNo {
     YES
