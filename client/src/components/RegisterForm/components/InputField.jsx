@@ -1,13 +1,11 @@
 const InputField = ({ state, setState, posError, messageError, regex, ...props }) => {
   const validateField = () => {
-    if (!regex) return state.validated
-    return regex.test(state.value)
+    if (!regex) return
+    const validated = regex.test(state.value)
+    setState((prev) => ({ ...prev, validated }))
   }
 
-  const handleChange = ({ target }) => {
-    const validated = validateField()
-    setState((prev) => ({ ...prev, value: target.value, validated }))
-  }
+  const handleChange = ({ target }) => setState((prev) => ({ ...prev, value: target.value }))
 
   return (
     <div className="register-form__input-wrapper">
@@ -20,6 +18,8 @@ const InputField = ({ state, setState, posError, messageError, regex, ...props }
             state.validated === false ? 'register-form__error' : ''
           }`}
           spellCheck="false"
+          onBlurCapture={validateField}
+          onKeyUp={state.validated === false ? validateField : () => {}}
           onChange={handleChange}
         />
       </div>
