@@ -1,9 +1,12 @@
 const InputField = ({ state, setState, posError, messageError, regex, ...props }) => {
-  const handleChange = ({ target }) => setState((prev) => ({ ...prev, value: target.value }))
   const validateField = () => {
-    if (!regex) return
-    const validated = regex.test(state.value)
-    setState((prev) => ({ ...prev, validated }))
+    if (!regex) return state.validated
+    return regex.test(state.value)
+  }
+
+  const handleChange = ({ target }) => {
+    const validated = validateField()
+    setState((prev) => ({ ...prev, value: target.value, validated }))
   }
 
   return (
@@ -18,8 +21,6 @@ const InputField = ({ state, setState, posError, messageError, regex, ...props }
           }`}
           spellCheck="false"
           onChange={handleChange}
-          onKeyUp={validateField}
-          onBlur={validateField}
         />
       </div>
       {state.validated === false && <span className="register-form__input-element-icon" />}
