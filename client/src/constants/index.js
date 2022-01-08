@@ -168,3 +168,16 @@ export const links = [
     children: 'Ayuda'
   }
 ]
+
+export const pronouns = [
+  { value: '0', children: 'Selecciona tu pronombre', disabled: '1' },
+  { value: '1', children: 'Femenino: "Salúdala por su cumpleaños"' },
+  { value: '2', children: 'Masculino: "Salúdalo por su cumpleaños"' },
+  { value: '3', children: 'Neutro: "Salúdalo(a) por su cumpleaños"' }
+]
+
+export const genders = [
+  { value: 1, label: 'Mujer' },
+  { value: 2, label: 'Hombre' },
+  { value: 3, label: 'Personalizado' }
+]

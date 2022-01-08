@@ -138,9 +138,25 @@
   display: inline-block;
 }
 
-.register-form__wrapper-select {
+.register-form__wrapper-select,
+.register-form__wrapper-select--margin {
   display: flex;
   gap: 12px;
+}
+
+.register-form__wrapper-select--margin {
+  margin-top: 12px;
+  gap: 2px;
+  flex-direction: column;
+}
+
+.register-form__wrapper-select--margin .register-form__select {
+  width: 100%;
+}
+
+.register-form__wrapper-select--margin > div,
+.register-form__wrapper-select--margin .register-form__input-container {
+  margin-bottom: 0;
 }
 
 .register-form__select {
