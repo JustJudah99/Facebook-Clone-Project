@@ -2,6 +2,7 @@ import useField from '../../hooks/useField'
 import DateOfBirthField from './components/DateOfBirthField'
 import GenderField from './components/GenderField'
 import InputField from './components/InputField'
+import PasswordField from './components/PasswordField'
 import './styles.css'
 
 const RegisterForm = ({ handleClose }) => {
@@ -31,7 +32,7 @@ const RegisterForm = ({ handleClose }) => {
             <InputField placeholder="Apellido" {...lastname} />
           </section>
           <InputField placeholder="Número de celular o correo electrónico" {...email} />
-          <InputField placeholder="Contraseña nueva" {...password} />
+          <PasswordField placeholder="Contraseña nueva" {...password} />
           <DateOfBirthField />
           <GenderField />
           <div className="register-form__policies-wrapper">
