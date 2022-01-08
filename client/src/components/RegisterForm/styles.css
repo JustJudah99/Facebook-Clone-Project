@@ -90,6 +90,25 @@
   -webkit-appearance: none;
 }
 
+.register-form__error {
+  border-color: red;
+}
+
+.register-form__input-element-icon {
+  position: absolute;
+  left: auto;
+  right: 9px;
+  top: 10px;
+  display: inline-block;
+  height: 21px;
+  width: 21px;
+  transform: scale(0.76);
+  background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/y4/r/EV7ny501e-i.png');
+  background-size: auto;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
 .register-form__input-element::placeholder {
   color: #8d949e;
 }
