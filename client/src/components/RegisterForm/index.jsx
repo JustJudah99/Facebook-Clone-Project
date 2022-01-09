@@ -29,7 +29,7 @@ const RegisterForm = ({ handleClose }) => {
           </section>
           <InputField {...fields.email} />
           <InputField {...fields.password} />
-          <DateOfBirthField />
+          <DateOfBirthField {...fields.date} />
           <GenderField />
           <PoliciesSection />
           <div className="register-form__wrapper-btn">

@@ -51,7 +51,8 @@ export default function useRegister() {
       state: date,
       setState: setDate,
       pos: 'left',
-      messageError: 'lol pone la fecha loco'
+      messageError:
+        'Parece que la información que ingresaste no es correcta. Asegúrate de usar tu fecha de nacimiento real.'
     }
   }
 
