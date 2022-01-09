@@ -22,6 +22,7 @@ const typeDefs = gql`
     email: String!
     password: String!
     id: ID!
+    token: String!
   }
   type Query {
     userCount: Int!
@@ -34,6 +35,7 @@ const typeDefs = gql`
       email: String!
       password: String!
     ): User
+    login(email: String!, password: String!): User
   }
 `
 

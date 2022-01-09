@@ -31,7 +31,11 @@ const resolvers = {
         }
         const Users = {...args, id: uuid()}
         User.push(Users)
-        return Users;
+        return Users.name;
+      },
+      login: async(root, args) => {
+        const {email} = args;
+        return User.find(User => User.email === email)
       }
     }
 };
