@@ -1,29 +1,14 @@
-const InputField = ({ state, setState, posError, messageError, regex, ...props }) => {
-  const validateField = () => {
-    if (!regex) return
-    const validated = regex.test(state.value)
-    setState((prev) => ({ ...prev, validated }))
-  }
-
-  const handleChange = ({ target }) => setState((prev) => ({ ...prev, value: target.value }))
-
+const InputField = ({ errors, ...props }) => {
   return (
     <div className="register-form__input-wrapper">
       <div className="register-form__input-container">
         <input
           {...props}
-          type={state.type}
-          value={state.value}
-          className={`register-form__input-element ${
-            state.validated === false ? 'register-form__error' : ''
-          }`}
+          className={`register-form__input-element ${errors ? 'register-form__error' : ''}`}
           spellCheck="false"
-          onBlurCapture={validateField}
-          onKeyUp={state.validated === false ? validateField : () => {}}
-          onChange={handleChange}
         />
       </div>
-      {state.validated === false && <span className="register-form__input-element-icon" />}
+      {errors && <span className="register-form__input-element-icon" />}
     </div>
   )
 }

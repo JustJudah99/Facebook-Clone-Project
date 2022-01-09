@@ -1,51 +1,57 @@
-import { getAge, getDays, getMonths, getYears } from '../../../utils'
+import { getDays, getMonths, getYears } from '../../../utils'
 import ContainerField from './ContainerField'
 import SelectionField from './SelectionField'
 
-const MIN_AGE = 4
+const DateOfBirthField = ({ value, errors, onChange, onFocus, onBlur }) => {
+  const normalizeTargetInput = (e) => {
+    const { value: newValue, name: inputName } = e.target
+    return { name: 'date', value: { ...value, [inputName]: +newValue } }
+  }
 
-const DateOfBirthField = ({ state, setState }) => {
-  const changeDay = ({ target }) =>
-    setState((prev) => ({
-      ...prev,
-      value: { ...prev.value, day: +target.value },
-      validated: getAge({ ...prev.value, day: +target.value }) > MIN_AGE
-    }))
+  const handleChange = (e) => {
+    const target = normalizeTargetInput(e)
+    onChange({ target })
+  }
 
-  const changeMonth = ({ target }) =>
-    setState((prev) => ({
-      ...prev,
-      value: { ...prev.value, month: +target.value },
-      validated: getAge({ ...prev.value, month: +target.value }) > MIN_AGE
-    }))
+  const handleFocus = (e) => {
+    const target = normalizeTargetInput(e)
+    onFocus({ target })
+  }
 
-  const changeYear = ({ target }) =>
-    setState((prev) => ({
-      ...prev,
-      value: { ...prev.value, year: +target.value },
-      validated: getAge({ ...prev.value, year: +target.value }) > MIN_AGE
-    }))
+  const handleBlur = (e) => {
+    const target = normalizeTargetInput(e)
+    onBlur({ target })
+  }
 
   return (
     <ContainerField label="Fecha de nacimiento">
       <div className="register-form__wrapper-select">
         <SelectionField
+          name="day"
           options={getDays()}
-          value={state.value.day}
-          validated={state.validated}
-          onChange={changeDay}
+          value={value.day}
+          errors={errors}
+          onChange={handleChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
         />
         <SelectionField
+          name="month"
           options={getMonths()}
-          value={state.value.month}
-          validated={state.validated}
-          onChange={changeMonth}
+          value={value.month}
+          errors={errors}
+          onChange={handleChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
         />
         <SelectionField
+          name="year"
           options={getYears()}
-          value={state.value.year}
-          validated={state.validated}
-          onChange={changeYear}
+          value={value.year}
+          errors={errors}
+          onChange={handleChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
         />
       </div>
     </ContainerField>

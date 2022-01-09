@@ -1,9 +1,6 @@
-const SelectionField = ({ options = [], validated = null, ...props }) => {
+const SelectionField = ({ options = [], errors, ...props }) => {
   return (
-    <select
-      className={`register-form__select ${validated === false ? 'register-form__error' : ''}`}
-      {...props}
-    >
+    <select className={`register-form__select ${errors ? 'register-form__error' : ''}`} {...props}>
       {options.map((option) => (
         <option key={option.children} {...option} />
       ))}
