@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { regexs } from '../../../constants'
+import { getDateSystem } from '../../../utils'
 
 export default function useRegister() {
   const [name, setName] = useState({ type: 'text', value: '', validated: null })
   const [lastname, setLastName] = useState({ type: 'text', value: '', validated: null })
   const [email, setEmail] = useState({ type: 'email', value: '', validated: null })
   const [password, setPassword] = useState({ type: 'password', value: '', validated: null })
+  const [date, setDate] = useState({ type: 'date', value: getDateSystem(), validated: null })
 
   const fields = {
     name: {
@@ -44,6 +46,12 @@ export default function useRegister() {
       onClick: () => setPassword((prev) => ({ ...prev, type: 'text' })),
       onFocus: () => setPassword((prev) => ({ ...prev, type: 'text' })),
       onBlur: () => setPassword((prev) => ({ ...prev, type: 'password' }))
+    },
+    date: {
+      state: date,
+      setState: setDate,
+      pos: 'left',
+      messageError: 'lol pone la fecha loco'
     }
   }
 
