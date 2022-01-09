@@ -11,20 +11,20 @@ const DateOfBirthField = ({ state, setState }) => {
       value: { ...prev.value, day: +target.value },
       validated: getAge({ ...prev.value, day: +target.value }) > MIN_AGE
     }))
+
   const changeMonth = ({ target }) =>
     setState((prev) => ({
       ...prev,
       value: { ...prev.value, month: +target.value },
       validated: getAge({ ...prev.value, month: +target.value }) > MIN_AGE
     }))
+
   const changeYear = ({ target }) =>
     setState((prev) => ({
       ...prev,
       value: { ...prev.value, year: +target.value },
       validated: getAge({ ...prev.value, year: +target.value }) > MIN_AGE
     }))
-
-  console.log({ age: getAge(state.value) >= MIN_AGE })
 
   return (
     <ContainerField label="Fecha de nacimiento">
