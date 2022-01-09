@@ -91,7 +91,7 @@
 }
 
 .register-form__error {
-  border-color: red;
+  border-color: red !important;
 }
 
 .register-form__input-element-icon {
