@@ -6,7 +6,9 @@ export const LOGIN_USER = gql`
       email: $email,
       password: $password
     ) {
-      token
+      token,
+      userLevel,
+      login
     }
   }
 `

@@ -23,6 +23,8 @@ const typeDefs = gql`
     password: String!
     id: ID!
     token: String!
+    userLevel: String!
+    login: Boolean!
   }
   type Query {
     userCount: Int!

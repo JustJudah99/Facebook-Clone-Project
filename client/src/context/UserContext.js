@@ -9,6 +9,11 @@ export const UserReducer = (state, action) => {
                 ...state,
                 isLoggedIn: true,
             }
+        case 'LOGOUT_USER':
+            return {
+                ...state,
+                isLoggedIn: false,
+            }
         default:
             throw new Error(`action type ${action.type} is undefined`)
     }

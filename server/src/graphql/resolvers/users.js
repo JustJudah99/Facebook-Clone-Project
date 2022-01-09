@@ -24,12 +24,15 @@ const userResolvers = {
                 const token = generateToken(user);
                 return {
                     userLevel: "ADMIN",
+                    login: true,
                     token
                 }
             }
             else {
+                const token = false; 
                 return {
                     userLevel: "USER",
+                    login: true,
                     token
                 }
             }
