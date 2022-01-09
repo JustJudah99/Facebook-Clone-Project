@@ -10,6 +10,7 @@ const OTHER_GENDER_SELECTION = genders.find(({ label }) => label === 'Personaliz
 
 const GenderField = () => {
   const [state, setState] = useState({ gender: NOT_SELECT_GENDER, otherGender: 0 })
+  const [opcional, setOpcional] = useState({ type: 'text', value: '', validated: null })
 
   const changeGender = ({ target }) => setState((prev) => ({ ...prev, gender: +target.value }))
   const changeOther = ({ target }) => setState((prev) => ({ ...prev, otherGender: +target.value }))
@@ -28,9 +29,9 @@ const GenderField = () => {
       </div>
       {state.gender === OTHER_GENDER_SELECTION && (
         <div className="register-form__wrapper-select--margin">
-          <SelectionField options={pronouns} value={state.other} onChange={changeOther} />
+          <SelectionField options={pronouns} value={state.otherGender} onChange={changeOther} />
           <ContainerField label="Tu pronombre será visible para todos." activeBtn={false}>
-            <InputField placeholder="Género (opcional)" />
+            <InputField state={opcional} setState={setOpcional} placeholder="Género (opcional)" />
           </ContainerField>
         </div>
       )}
