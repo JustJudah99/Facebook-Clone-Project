@@ -7,7 +7,11 @@ export default function useRegister() {
   const [lastname, setLastName] = useState({ type: 'text', value: '', validated: null })
   const [email, setEmail] = useState({ type: 'email', value: '', validated: null })
   const [password, setPassword] = useState({ type: 'password', value: '', validated: null })
-  const [date, setDate] = useState({ type: 'date', value: getDateSystem(), validated: null })
+  const [date, setDate] = useState({ value: getDateSystem(), validated: null })
+  const [gender, setGender] = useState({
+    value: { gender: 0, pronoun: { value: 0, gender: '' } },
+    validated: null
+  })
 
   const fields = {
     name: {
@@ -53,6 +57,15 @@ export default function useRegister() {
       pos: 'left',
       messageError:
         'Parece que la información que ingresaste no es correcta. Asegúrate de usar tu fecha de nacimiento real.'
+    },
+    gender: {
+      state: gender,
+      setState: setGender,
+      pos: 'left',
+      messageError: [
+        'Elige un género. Podrás cambiar quién puede verlo más tarde.',
+        'Por favor selecciona tu pronombre'
+      ]
     }
   }
 

@@ -30,7 +30,7 @@ const RegisterForm = ({ handleClose }) => {
           <InputField {...fields.email} />
           <InputField {...fields.password} />
           <DateOfBirthField {...fields.date} />
-          <GenderField />
+          <GenderField {...fields.gender} />
           <PoliciesSection />
           <div className="register-form__wrapper-btn">
             <button className="register-form__btn-submit" type="submit">
