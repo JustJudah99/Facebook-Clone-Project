@@ -76,7 +76,15 @@ export default function useRegister() {
     const isValidated = arrayFields.every(({ state }) => state.validated === true)
 
     if (isValidated) {
-      return console.log('Register')
+      const user = {
+        name: name.value,
+        lastname: lastname.value,
+        email: email.value,
+        password: password.value,
+        date: date.value,
+        gender: gender.value
+      }
+      console.log({ user })
     } else {
       arrayFields.forEach(({ state, setState }) => {
         if (state.validated === null) setState((prev) => ({ ...prev, validated: false }))
