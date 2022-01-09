@@ -27,7 +27,6 @@ export default function useForm(initialValues, validateValues) {
 
   const handleFocus = (event) => {
     const { name } = event.target
-    console.log({ name })
     setErrors((prev) => {
       const newErrors = { ...prev }
       Object.keys(newErrors).forEach((input) => {
