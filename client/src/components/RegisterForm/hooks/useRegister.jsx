@@ -1,99 +1,126 @@
-import { useState } from 'react'
-import { regexs } from '../../../constants'
-import { getDateSystem } from '../../../utils'
+import { MIN_AGE, NOT_GENDER, NOT_PRONOUN, OTHER_GENDER, regexs } from '../../../constants'
+import useForm from '../../../hooks/useForm'
+import { getAge, getDateSystem } from '../../../utils'
 
-export default function useRegister() {
-  const [name, setName] = useState({ type: 'text', value: '', validated: null })
-  const [lastname, setLastName] = useState({ type: 'text', value: '', validated: null })
-  const [email, setEmail] = useState({ type: 'email', value: '', validated: null })
-  const [password, setPassword] = useState({ type: 'password', value: '', validated: null })
-  const [date, setDate] = useState({ value: getDateSystem(), validated: null })
-  const [gender, setGender] = useState({
-    value: { gender: 0, pronoun: { value: 0, gender: '' } },
-    validated: null
-  })
+const initialValues = {
+  name: '',
+  lastname: '',
+  email: '',
+  password: '',
+  date: getDateSystem(), // { day: 1, month: 0, year: 2022}
+  gender: { id: NOT_GENDER, custom: NOT_PRONOUN, name: '' }
+}
 
-  const fields = {
-    name: {
-      state: name,
-      setState: setName,
-      posError: 'left',
-      messageError: '¿Cómo te llamas?',
-      regex: regexs.name,
-      placeholder: 'Nombre'
-    },
-    lastname: {
-      state: lastname,
-      setState: setLastName,
-      posError: 'bottom',
-      messageError: '¿Cómo te llamas?',
-      regex: regexs.name,
-      placeholder: 'Apellido'
-    },
-    email: {
-      state: email,
-      setState: setEmail,
-      posError: 'left',
-      messageError:
-        'Ingresa un número de teléfono celular o una dirección de correo electrónico válidos.',
-      regex: regexs.email,
-      placeholder: 'Número de celular o correo electrónico'
-    },
-    password: {
-      state: password,
-      setState: setPassword,
-      posError: 'left',
-      messageError:
-        'Ingresa una combinación de al menos seis números, letras y signos de puntuación (como ! y &).',
-      regex: regexs.password,
-      placeholder: 'Contraseña nueva',
-      onClick: () => setPassword((prev) => ({ ...prev, type: 'text' })),
-      onFocus: () => setPassword((prev) => ({ ...prev, type: 'text' })),
-      onBlur: () => setPassword((prev) => ({ ...prev, type: 'password' }))
-    },
-    date: {
-      state: date,
-      setState: setDate,
-      pos: 'left',
-      messageError:
-        'Parece que la información que ingresaste no es correcta. Asegúrate de usar tu fecha de nacimiento real.'
-    },
-    gender: {
-      state: gender,
-      setState: setGender,
-      pos: 'left',
-      messageError: [
-        'Elige un género. Podrás cambiar quién puede verlo más tarde.',
-        'Por favor selecciona tu pronombre'
-      ]
-    }
+const validateValues = ({ name, lastname, email, password, date, gender }) => {
+  const errors = {}
+
+  if (!regexs.name.test(name)) {
+    errors.name = '¿Cómo te llamas?'
   }
+
+  if (!regexs.name.test(lastname)) {
+    errors.lastname = '¿Cómo te llamas?'
+  }
+
+  if (!regexs.email.test(email)) {
+    errors.email =
+      'Ingresa un número de teléfono celular o una dirección de correo electrónico válidos.'
+  }
+
+  if (!regexs.password.test(password)) {
+    errors.password =
+      'Ingresa una combinación de al menos seis números, letras y signos de puntuación (como ! y &).'
+  }
+
+  if (!(getAge(date) > MIN_AGE)) {
+    errors.date =
+      'Parece que la información que ingresaste no es correcta. Asegúrate de usar tu fecha de nacimiento real.'
+  }
+
+  if (gender.id === NOT_GENDER) {
+    errors.gender = 'Elige un género. Podrás cambiar quién puede verlo más tarde.'
+  } else if (gender.id === OTHER_GENDER && gender.custom === NOT_PRONOUN)
+    errors.gender = 'Por favor selecciona tu pronombre'
+
+  return errors
+}
+
+function useRegister() {
+  const {
+    values,
+    errors,
+    checkErrors,
+    handleChange: onChange,
+    handleBlur: onBlur,
+    handleFocus: onFocus
+  } = useForm(initialValues, validateValues)
 
   const handleSubmit = (e) => {
     e.preventDefault()
-
-    const arrayFields = Object.values(fields)
-    const isValidated = arrayFields.every(({ state }) => state.validated === true)
-
-    if (isValidated) {
-      const user = {
-        name: name.value,
-        lastname: lastname.value,
-        email: email.value,
-        password: password.value,
-        date: date.value,
-        gender: gender.value
-      }
-      console.log({ user })
-    } else {
-      arrayFields.forEach(({ state, setState }) => {
-        if (state.validated === null) setState((prev) => ({ ...prev, validated: false }))
-      })
-    }
+    checkErrors()
+    if (Object.keys(errors).length !== 0) return
+    console.log({ values, errors })
   }
 
   return {
-    fields,
+    fields: {
+      name: {
+        type: 'text',
+        name: 'name',
+        value: values.name,
+        errors: errors.name,
+        placeholder: 'Nombre',
+        onChange,
+        onFocus,
+        onBlur
+      },
+      lastname: {
+        type: 'text',
+        name: 'lastname',
+        value: values.lastname,
+        errors: errors.lastname,
+        placeholder: 'Apellido',
+        onChange,
+        onFocus,
+        onBlur
+      },
+      email: {
+        type: 'email',
+        name: 'email',
+        value: values.email,
+        errors: errors.email,
+        placeholder: 'Número de celular o correo electrónico',
+        onChange,
+        onFocus,
+        onBlur
+      },
+      password: {
+        type: 'password',
+        name: 'password',
+        value: values.password,
+        errors: errors.password,
+        placeholder: 'Contraseña nueva',
+        onChange,
+        onFocus,
+        onBlur
+      },
+      date: {
+        value: values.date,
+        errors: errors.date,
+        onChange,
+        onFocus,
+        onBlur
+      },
+      gender: {
+        value: values.gender,
+        errors: errors.gender,
+        onChange,
+        onFocus,
+        onBlur
+      }
+    },
     handleSubmit
   }
 }
+
+export { initialValues, validateValues, useRegister }
