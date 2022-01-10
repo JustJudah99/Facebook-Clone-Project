@@ -10,7 +10,7 @@ const RegisterForm = ({ handleClose }) => {
   const lastname = useField('text')
   const email = useField('email')
   const password = useField('password')
-
+  
   return (
     <div className="register-form__wrapper">
       <div className="register-form__container">

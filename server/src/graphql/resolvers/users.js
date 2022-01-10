@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken"
+import bcrypt from 'bcryptjs';
 import Dotenv from "dotenv";
 import User from "../../models/User.js";
 Dotenv.config();
@@ -34,6 +35,32 @@ const userResolvers = {
                     userLevel: "USER",
                     login: true,
                     token
+                }
+            }
+        },
+        addUser: async(root, args)=> {
+            let {name, lastname, email, password, birth, sex} = args;
+            const UserDoc=await User.find({email})
+            if (UserDoc.length !== 0) {
+                return {
+                    msg: "USER_ALREADY_EXISTS"
+                }
+            } else {
+                password = await bcrypt.hash(password,12);
+                let levelUser;
+                UserDoc.length == 0 ? levelUser = "ADMIN" : levelUser = "USER";
+                const newUser = new User({
+                    name,
+                    lastname,
+                    email,
+                    password,
+                    birth,
+                    sex,
+                    levelUser
+                })
+                console.log(newUser);
+                return {
+                    msg: "USER_REGISTRED_SUCCESS"
                 }
             }
         }
