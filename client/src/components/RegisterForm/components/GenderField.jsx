@@ -1,60 +1,77 @@
-import { useEffect, useState } from 'react'
-import { genders, pronouns } from '../../../constants'
+import { genders, NOT_PRONOUN, OTHER_GENDER, pronouns } from '../../../constants'
 import ContainerField from './ContainerField'
 import InputField from './InputField'
 import RadioButton from './RadioButton'
 import SelectionField from './SelectionField'
 
-const NOT_SELECT_GENDER = 0
-const OTHER_GENDER_SELECT = genders.find(({ label }) => label === 'Personalizado').value || 3
+const GenderField = ({ value, errors, onChange, onFocus, onBlur }) => {
+  const normalizeTargetInput = (e) => {
+    const { value: newValue, name: newName } = e.target
+    let parser = {}
 
-const GenderField = ({ state, setState }) => {
-  const [opcional, setOpcional] = useState({ type: 'text', value: '', validated: null })
+    if (newName === 'opcional-gender') {
+      parser = { ...value, name: newValue }
+    } else if (newName === 'pronoun') {
+      parser = { ...value, custom: +newValue }
+    } else if (newName !== genders[2].label) {
+      parser = { id: +newValue, custom: NOT_PRONOUN, name: newName }
+    } else parser = { id: +newValue, custom: NOT_PRONOUN, name: '' }
 
-  useEffect(() => {
-    setState((prev) => ({
-      ...prev,
-      value: { ...prev.value, pronoun: { ...prev.value.pronoun, gender: opcional.value } }
-    }))
-  }, [opcional.value])
+    return { name: 'gender', value: parser }
+  }
 
-  const changeGender = ({ target }) =>
-    setState((prev) => ({
-      ...prev,
-      value: { ...prev.value, gender: +target.value },
-      validated: +target.value !== OTHER_GENDER_SELECT ? +target.value !== NOT_SELECT_GENDER : null
-    }))
+  const handleChange = (e) => {
+    const target = normalizeTargetInput(e)
+    onChange({ target })
+  }
 
-  const changeOther = ({ target }) =>
-    setState((prev) => ({
-      ...prev,
-      value: { ...prev.value, pronoun: { ...prev.value.pronoun, value: +target.value } },
-      validated: +target.value !== NOT_SELECT_GENDER
-    }))
+  const handleFocus = (e) => {
+    const target = normalizeTargetInput(e)
+    onFocus({ target })
+  }
+
+  const handleBlur = (e) => {
+    const target = normalizeTargetInput(e)
+    onBlur({ target })
+  }
 
   return (
     <ContainerField label="Sexo">
       <div className="register-form__wrapper-select">
         {genders.map((gender) => (
           <RadioButton
+            name={gender.label}
             key={gender.label}
-            state={state.value.gender}
-            handleChange={changeGender}
-            validated={state.value.gender !== OTHER_GENDER_SELECT ? state.validated : null}
+            checked={gender.value === value.id}
+            onChange={handleChange}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            errors={value.id === OTHER_GENDER ? undefined : errors}
             {...gender}
           />
         ))}
       </div>
-      {state.value.gender === OTHER_GENDER_SELECT && (
+      {value.id === OTHER_GENDER && (
         <div className="register-form__wrapper-select--margin">
           <SelectionField
+            name="pronoun"
             options={pronouns}
-            value={state.value.pronoun.value}
-            onChange={changeOther}
-            validated={state.validated}
+            value={value.custom}
+            onChange={handleChange}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            errors={errors}
           />
           <ContainerField label="Tu pronombre será visible para todos." activeBtn={false}>
-            <InputField state={opcional} setState={setOpcional} placeholder="Género (opcional)" />
+            <InputField
+              type="text"
+              name="opcional-gender"
+              value={value.name}
+              placeholder="Género (opcional)"
+              onChange={handleChange}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+            />
           </ContainerField>
         </div>
       )}
