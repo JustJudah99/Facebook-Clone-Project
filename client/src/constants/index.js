@@ -170,7 +170,7 @@ export const links = [
 ]
 
 export const pronouns = [
-  { value: 0, children: 'Selecciona tu pronombre', disabled: '0' },
+  { value: -1, children: 'Selecciona tu pronombre', disabled: '-1' },
   { value: 1, children: 'Femenino: "Salúdala por su cumpleaños"' },
   { value: 2, children: 'Masculino: "Salúdalo por su cumpleaños"' },
   { value: 6, children: 'Neutro: "Salúdalo(a) por su cumpleaños"' }
@@ -189,3 +189,8 @@ export const regexs = {
   email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
   mobile: /^\d{7,14}$/ // 7 a 14 numeros.
 }
+
+export const MIN_AGE = 4
+export const NOT_GENDER = 0
+export const OTHER_GENDER = -1
+export const NOT_PRONOUN = -1
