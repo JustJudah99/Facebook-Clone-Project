@@ -1,20 +1,21 @@
 import { useState } from 'react'
 
-const PasswordField = ({ ...props }) => {
-  const [type, setType] = useState('password')
+const PasswordField = ({ errors, ...props }) => {
+  const [state, setState] = useState('password')
   return (
     <div className="register-form__input-wrapper">
       <div className="register-form__input-container">
         <input
           {...props}
-          type={type}
-          className="register-form__input-element"
+          type={state}
+          className={`register-form__input-element ${errors ? 'register-form__error' : ''}`}
+          spellCheck="false"
+          onFocusCapture={() => setState('text')}
+          onBlurCapture={() => setState('password')}
           autoComplete="new-password"
-          onClick={() => setType('text')}
-          onFocus={() => setType('text')}
-          onBlur={() => setType('password')}
         />
       </div>
+      {errors && <span className="register-form__input-element-icon" />}
     </div>
   )
 }
