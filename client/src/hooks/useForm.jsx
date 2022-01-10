@@ -14,8 +14,12 @@ export default function useForm(initialValues, validateValues) {
   }
 
   const checkErrors = () => {
-    setTouched(Object.keys(values))
+    setTouched((prev) => {
+      const newvalues = Object.keys(values).filter((value) => !prev.includes(value))
+      return [...prev, ...newvalues]
+    })
     setErrors(validateValues(values))
+    return validateValues(values)
   }
 
   const handleChange = (event) => {
