@@ -1,6 +1,7 @@
 import DateOfBirthField from './components/DateOfBirthField'
 import GenderField from './components/GenderField'
 import InputField from './components/InputField'
+import PasswordField from './components/PasswordField'
 import PoliciesSection from './components/PoliciesSection'
 import { initialValues, useRegister, validateValues } from './hooks/useRegister'
 import './styles.css'
@@ -29,7 +30,7 @@ const RegisterForm = ({ handleClose }) => {
             <InputField {...fields.lastname} />
           </section>
           <InputField {...fields.email} />
-          <InputField {...fields.password} />
+          <PasswordField {...fields.password} />
           <DateOfBirthField {...fields.date} />
           <GenderField {...fields.gender} />
           <PoliciesSection />
