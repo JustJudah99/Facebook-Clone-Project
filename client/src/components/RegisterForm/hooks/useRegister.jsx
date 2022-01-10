@@ -57,9 +57,11 @@ function useRegister() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    checkErrors()
-    if (Object.keys(errors).length !== 0) return
-    console.log({ values, errors })
+    const allErrors = checkErrors()
+    if (Object.keys(allErrors).length !== 0) return // NO SUBMIT
+
+    // HERE CODE FOR SUBMIT
+    console.log({ values })
   }
 
   return {
