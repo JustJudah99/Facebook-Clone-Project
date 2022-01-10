@@ -1,36 +1,43 @@
-import { useState } from 'react'
-import { genders, pronouns } from '../../../constants'
+import { OTHER_GENDER } from '../../../constants'
+import { useGender } from '../hooks/useGender'
 import ContainerField from './ContainerField'
 import InputField from './InputField'
 import RadioButton from './RadioButton'
 import SelectionField from './SelectionField'
 
-const NOT_SELECT_GENDER = 0
-const OTHER_GENDER_SELECTION = genders.find(({ label }) => label === 'Personalizado').value || 3
-
-const GenderField = () => {
-  const [state, setState] = useState({ gender: NOT_SELECT_GENDER, otherGender: 0 })
-
-  const changeGender = ({ target }) => setState((prev) => ({ ...prev, gender: +target.value }))
-  const changeOther = ({ target }) => setState((prev) => ({ ...prev, otherGender: +target.value }))
-
+const GenderField = ({ value, errors, onChange, onFocus, onBlur }) => {
+  const { handlers, genders, pronouns } = useGender({ value, errors, onChange, onFocus, onBlur })
   return (
     <ContainerField label="Sexo">
       <div className="register-form__wrapper-select">
         {genders.map((gender) => (
           <RadioButton
+            name={gender.label}
             key={gender.label}
-            state={state.gender}
-            handleChange={changeGender}
+            checked={gender.value === value.id}
+            errors={value.id === OTHER_GENDER ? undefined : errors}
+            {...handlers}
             {...gender}
           />
         ))}
       </div>
-      {state.gender === OTHER_GENDER_SELECTION && (
+      {value.id === OTHER_GENDER && (
         <div className="register-form__wrapper-select--margin">
-          <SelectionField options={pronouns} value={state.other} onChange={changeOther} />
+          <SelectionField
+            name="pronoun"
+            options={pronouns}
+            value={value.custom}
+            errors={errors}
+            {...handlers}
+          />
           <ContainerField label="Tu pronombre será visible para todos." activeBtn={false}>
-            <InputField placeholder="Género (opcional)" />
+            <InputField
+              type="text"
+              name="opcional-gender"
+              value={value.name}
+              placeholder="Género (opcional)"
+              {...handlers}
+            />
           </ContainerField>
         </div>
       )}
