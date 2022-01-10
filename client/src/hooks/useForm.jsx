@@ -4,7 +4,6 @@ export default function useForm(initialValues, validateValues) {
   const [values, setValues] = useState(initialValues)
   const [touched, setTouched] = useState([])
   const [errors, setErrors] = useState({})
-  const [state, setState] = useState({ loading: false, response: null })
 
   const checkTouchedFields = (errors) => {
     const newErrors = { ...errors }
@@ -14,10 +13,18 @@ export default function useForm(initialValues, validateValues) {
     return newErrors
   }
 
+  const checkErrors = () => {
+    setTouched(Object.keys(values))
+    setErrors(validateValues(values))
+  }
+
   const handleChange = (event) => {
     const { name, value } = event.target
     setValues((prev) => ({ ...prev, [name]: value }))
-    setTouched((prev) => [...prev, name])
+    setTouched((prev) => {
+      if (!prev.includes(name)) return [...prev, name]
+      return prev
+    })
   }
 
   const handleBlur = (event) => {
@@ -36,22 +43,12 @@ export default function useForm(initialValues, validateValues) {
     })
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    setErrors(validateValues(values))
-
-    if (Object.keys(errors).length !== 0) return
-    setState({ loading: false, response: null })
-  }
-
   return {
     values,
     errors: checkTouchedFields(errors),
-    isLoading: state.loading,
-    response: state.response,
     handleChange,
     handleBlur,
     handleFocus,
-    handleSubmit
+    checkErrors
   }
 }
