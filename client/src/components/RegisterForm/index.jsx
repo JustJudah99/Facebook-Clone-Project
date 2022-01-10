@@ -1,3 +1,5 @@
+import { REGISTER_USER } from '../../graphql/User'
+import { useMutation } from "@apollo/client"
 import DateOfBirthField from './components/DateOfBirthField'
 import GenderField from './components/GenderField'
 import InputField from './components/InputField'
@@ -7,8 +9,27 @@ import { initialValues, useRegister, validateValues } from './hooks/useRegister'
 import './styles.css'
 
 const RegisterForm = ({ handleClose }) => {
-  const { fields, handleSubmit } = useRegister(initialValues, validateValues)
+  const { fields, handleSubmit } = useRegister(initialValues, validateValues);
+  const [register, {data}] = useMutation(REGISTER_USER, {
+    variables: {
+      name: fields.name.value,
+      lastname: fields.lastname.value,
+      email: fields.email.value,
+      password: fields.password.value,
+      dayOfBirth: fields.date.value.day,
+      monthOfBirth: fields.date.value.month,
+      yearOfBith: fields.date.value.year,
+      sexId: fields.gender.value.id,
+      sexType: fields.gender.value.name
+    },
+    onCompleted: (data) => {
+      console.log(fields);
+    }
+  })
 
+  const validateForm = () => {
+    register()
+  }
   return (
     <div className="register-form__wrapper">
       <div className="register-form__container">
@@ -35,7 +56,7 @@ const RegisterForm = ({ handleClose }) => {
           <GenderField {...fields.gender} />
           <PoliciesSection />
           <div className="register-form__wrapper-btn">
-            <button className="register-form__btn-submit" type="submit">
+            <button className="register-form__btn-submit" type="click" onClick={validateForm}>
               Registrarse
             </button>
           </div>

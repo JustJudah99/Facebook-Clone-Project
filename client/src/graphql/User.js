@@ -19,16 +19,28 @@ export const REGISTER_USER = gql`
     $lastname: String!
     $email: String!,
     $password: String!,
-    $birth: String!,
-    $sex: String!
+    $dayOfBirth: Int!,
+    $monthOfBirth: Int!,
+    $yearOfBith: Int!
+    $sexId: Int!,
+    $sexType: String!
   ) {
     addUser(
-      name: $name,
-      lastname: $lastname,
-      email: $email,
-      password: $password,
-      birth: $birth,
-      sex: $sex
+      registerInput: {
+        name: $name,
+        lastname: $lastname,
+        email: $email,
+        password: $password,
+        birth: {
+          day: $dayOfBirth,
+          month: $monthOfBirth,
+          year: $yearOfBith,
+        }
+        sex: {
+          sexId: $sexId,
+          sexType: $sexType
+        }
+      }
     ) {
       msg
     }

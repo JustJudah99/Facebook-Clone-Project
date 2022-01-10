@@ -1,28 +1,23 @@
 import { gql } from 'apollo-server';
 
-const User = [
-  {
-    name: "Robert",
-    email: "robert@admin.com",
-    password: "12345678"
-  },
-  {
-    name: "Brian",
-    email: "brian@admin.com",
-    password: "12345678"
-  },
-]
 const typeDefs = gql`
   enum YesNo {
     YES
     NO
   }
+
+  type Message {
+    msg: String!
+  }
+
   type User {
     name: String!
     lastname: String!
     email: String!
     password: String!
-    birth: String!
+    dayOfBirth: Int!
+    monthOfBirth: Int!
+    yearOfBith: Int!
     sex: String!
     id: ID!
     token: String!
@@ -30,20 +25,34 @@ const typeDefs = gql`
     login: Boolean!
     msg: String!
   }
+
+  input Sex {
+    sexId: Int!
+    sexType: String!
+  }
+
+  input Date {
+    day: Int!
+    month: Int!
+    year: Int!
+  }
+
+  input RegisterInput {
+    name: String!
+    lastname: String!
+    email: String!
+    password: String!
+    birth: [Date]!
+    sex: [Sex]!
+  }
+
   type Query {
     userCount: Int!
     allUsers: [User]
     findUser(name: String!): User
   }
   type Mutation {
-    addUser(
-      name: String!
-      lastname: String!
-      email: String!
-      password: String!
-      birth: String!
-      sex: String!
-    ): User
+    addUser(registerInput: RegisterInput): Message
     login(email: String!, password: String!): User
   }
 `

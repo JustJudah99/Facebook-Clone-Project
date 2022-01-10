@@ -10,6 +10,7 @@ export const UIContext = createContext();
 export const UserContext = createContext();
 
 function App() {
+  const [uiState, uiDispatch] = useReducer(UIReducer, initialUIState)
   const [userState, userDispatch] = useReducer(UserReducer, initialUserState)
   return (
     <UIContext.Provider value={{ uiState, uiDispatch }}>

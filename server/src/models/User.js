@@ -19,12 +19,28 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     birth: {
-        type: String,
-        required: true
+        dayOfBirth: {
+            type: Number,
+            required: true
+        },
+        monthOfBirth: {
+            type: Number,
+            required: true
+        },
+        yearOfBith: {
+            type: Number,
+            required: true
+        }
     },
     sex: {
-        type: String,
-        required: true
+        sexId: {
+            type: Number,
+            required: true
+        },
+        sexType: {
+            type: String,
+            required: true
+        }
     },
     levelUser: {
         type: String,
