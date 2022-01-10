@@ -1,15 +1,11 @@
-import { regexs } from '../../constants'
+import { MIN_AGE, NOT_GENDER, NOT_PRONOUN, OTHER_GENDER, regexs } from '../../constants'
 import useForm from '../../hooks/useForm'
 import { getAge, getDateSystem } from '../../utils'
 import DateOfBirthField from './components/DateOfBirthField'
 import GenderField from './components/GenderField'
 import InputField from './components/InputField'
 import PoliciesSection from './components/PoliciesSection'
-import useRegister from './hooks/useRegister'
 import './styles.css'
-
-const MIN_AGE = 4
-const OTHER_GENDER_SELECT = -1
 
 const initialValues = {
   name: '',
@@ -17,7 +13,7 @@ const initialValues = {
   email: '',
   password: '',
   date: getDateSystem(), // { day: 1, month: 0, year: 2022}
-  gender: { value: 0, name: null }
+  gender: { id: NOT_GENDER, custom: NOT_PRONOUN, name: '' }
 }
 
 const validateValues = (values) => {
@@ -40,19 +36,27 @@ const validateValues = (values) => {
     errors.date =
       'Parece que la información que ingresaste no es correcta. Asegúrate de usar tu fecha de nacimiento real.'
 
-  if (+gender.value !== OTHER_GENDER_SELECT) {
+  if (gender.id === NOT_GENDER) {
     errors.gender = 'Elige un género. Podrás cambiar quién puede verlo más tarde.'
-  } else if (+gender.name === null) errors.gender = 'Por favor selecciona tu pronombre'
+  } else if (gender.id === OTHER_GENDER && gender.custom === NOT_PRONOUN)
+    errors.gender = 'Por favor selecciona tu pronombre'
 
   return errors
 }
 
 const RegisterForm = ({ handleClose }) => {
-  const { values, errors, handleChange, handleBlur, handleFocus } = useForm(
+  const { values, errors, checkErrors, handleChange, handleBlur, handleFocus } = useForm(
     initialValues,
     validateValues
   )
-  const { fields, handleSubmit } = useRegister()
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    checkErrors()
+    if (Object.keys(errors).length === 0) return
+    console.log({ values })
+  }
+
   return (
     <div className="register-form__wrapper">
       <div className="register-form__container">
@@ -118,7 +122,13 @@ const RegisterForm = ({ handleClose }) => {
             onBlur={handleBlur}
             errors={errors.date}
           />
-          <GenderField {...fields.gender} />
+          <GenderField
+            value={values.gender}
+            onChange={handleChange}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            errors={errors.gender}
+          />
           <PoliciesSection />
           <div className="register-form__wrapper-btn">
             <button className="register-form__btn-submit" type="submit">
