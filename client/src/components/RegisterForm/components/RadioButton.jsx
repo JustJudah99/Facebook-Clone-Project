@@ -1,16 +1,8 @@
-const RadioButton = ({ value, label, state, handleChange, validated = null }) => {
+const RadioButton = ({ label, errors, ...props }) => {
   return (
-    <span
-      className={`register-form__checkbox ${validated === false ? 'register-form__error' : ''}`}
-    >
+    <span className={`register-form__checkbox ${errors ? 'register-form__error' : ''}`}>
       <label htmlFor={`radio-button-${label}`}>{label}</label>
-      <input
-        type="radio"
-        id={`radio-button-${label}`}
-        value={value}
-        checked={value === state}
-        onChange={handleChange}
-      />
+      <input type="radio" id={`radio-button-${label}`} {...props} />
     </span>
   )
 }
