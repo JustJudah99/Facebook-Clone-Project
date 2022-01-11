@@ -40,7 +40,7 @@ export const getMonths = () => {
   return months.map((children, i) => ({ value: i, children }))
 }
 
-export const getAge = ({day, month, year}) => {
+export const getAge = ({ day, month, year }) => {
   const { day: sysDay, month: sysMonth, year: sysYear } = getDateSystem()
 
   let age = sysYear - year
@@ -49,3 +49,15 @@ export const getAge = ({day, month, year}) => {
   if (newMonth < 0 || (newMonth === 0 && sysDay < day)) age--
   return age
 }
+
+export const normalizeValuesRegisterUser = (values) => ({
+  name: values.name,
+  lastname: values.lastname,
+  email: values.email,
+  password: values.password,
+  dayOfBirth: values.date.day,
+  monthOfBirth: values.date.month,
+  yearOfBith: values.date.year,
+  sexId: values.gender.id,
+  sexType: values.gender.name
+})

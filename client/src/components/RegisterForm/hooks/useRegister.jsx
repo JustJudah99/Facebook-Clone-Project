@@ -1,6 +1,8 @@
+import { useMutation } from '@apollo/client'
 import { MIN_AGE, NOT_GENDER, NOT_PRONOUN, OTHER_GENDER, regexs } from '../../../constants'
 import useForm from '../../../hooks/useForm'
-import { getAge, getDateSystem } from '../../../utils'
+import { REGISTER_USER } from '../../../user/graphql-mutations'
+import { getAge, getDateSystem, normalizeValuesRegisterUser } from '../../../utils'
 
 const initialValues = {
   name: '',
@@ -11,53 +13,37 @@ const initialValues = {
   gender: { id: NOT_GENDER, custom: NOT_PRONOUN, name: '' }
 }
 
-const validateValues = ({
-  name,
-  lastname, 
-  email,
-  password,
-  birth: {
-    day,
-    month,
-    year
-  },
-  gender:{
-    sexId,
-    sexType
-  } }) => {
+const validateValues = ({ name, lastname, email, password, date, gender }) => {
   const errors = {}
-  errors.register= true;
+
   if (!regexs.name.test(name)) {
     errors.name = '¿Cómo te llamas?'
-    errors.register= false
   }
 
   if (!regexs.name.test(lastname)) {
     errors.lastname = '¿Cómo te llamas?'
-    errors.register= false
   }
 
   if (!regexs.email.test(email)) {
-    errors.email = 'Ingresa un número de teléfono celular o una dirección de correo electrónico válidos.'
-    errors.register= false
+    errors.email =
+      'Ingresa un número de teléfono celular o una dirección de correo electrónico válidos.'
   }
 
   if (!regexs.password.test(password)) {
-    errors.password = 'Ingresa una combinación de al menos seis números, letras y signos de puntuación (como ! y &).'
-    errors.register= false
+    errors.password =
+      'Ingresa una combinación de al menos seis números, letras y signos de puntuación (como ! y &).'
   }
 
-  if (!(getAge({day, month, year}) > MIN_AGE)) {
-    errors.date = 'Parece que la información que ingresaste no es correcta. Asegúrate de usar tu fecha de nacimiento real.'
-    errors.register= false
+  if (!(getAge(date) > MIN_AGE)) {
+    errors.date =
+      'Parece que la información que ingresaste no es correcta. Asegúrate de usar tu fecha de nacimiento real.'
   }
 
-  if (sexId === NOT_GENDER) {
+  if (gender.id === NOT_GENDER) {
     errors.gender = 'Elige un género. Podrás cambiar quién puede verlo más tarde.'
-    errors.register= false
-  } else if (sexId === OTHER_GENDER && sexType === NOT_PRONOUN)
+  } else if (gender.id === OTHER_GENDER && gender.custom === NOT_PRONOUN) {
     errors.gender = 'Por favor selecciona tu pronombre'
-    errors.register= false
+  }
 
   return errors
 }
@@ -72,13 +58,26 @@ function useRegister() {
     handleFocus: onFocus
   } = useForm(initialValues, validateValues)
 
+  const [register, { data, loading }] = useMutation(REGISTER_USER, {
+    variables: normalizeValuesRegisterUser(values),
+    onCompleted: (res) => {
+      console.log('Registrado')
+      console.log({ data, res })
+    },
+    onError(err) {
+      console.log({ err })
+    }
+  })
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    const allErrors = checkErrors()
-    if (Object.keys(allErrors).length !== 0) return // NO SUBMIT
+    if (loading) return // Validated if loading state
 
-    // HERE CODE FOR SUBMIT
-    console.log({ values })
+    const allErrors = checkErrors()
+    if (Object.keys(allErrors).length !== 0) return // Not submit but exists errors
+
+    // Add new user or register new user
+    register()
   }
 
   return {
