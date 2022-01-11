@@ -1,4 +1,6 @@
-function DateOfBirth({ value, errors, onChange, onFocus, onBlur }) {
+import { getDays, getMonths, getYears } from '../../../utils'
+
+function useDateOfBirth({ value, errors, onChange, onFocus, onBlur }) {
   const normalizeTargetInput = (e) => {
     const { value: newValue, name: inputName } = e.target
     return { name: 'date', value: { ...value, [inputName]: +newValue } }
@@ -20,10 +22,23 @@ function DateOfBirth({ value, errors, onChange, onFocus, onBlur }) {
   }
 
   return {
-    onChange: handleChange,
-    onFocus: handleFocus,
-    onBlur: handleBlur
+    values: {
+      day: value.day,
+      month: value.month,
+      year: value.year
+    },
+    options: {
+      days: getDays(),
+      months: getMonths(),
+      years: getYears()
+    },
+    errors,
+    handlers: {
+      onChange: handleChange,
+      onFocus: handleFocus,
+      onBlur: handleBlur
+    }
   }
 }
 
-export { DateOfBirth }
+export { useDateOfBirth }
