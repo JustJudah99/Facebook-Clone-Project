@@ -19,15 +19,15 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     birth: {
-        dayOfBirth: {
+        day: {
             type: Number,
             required: true
         },
-        monthOfBirth: {
+        month: {
             type: Number,
             required: true
         },
-        yearOfBith: {
+        year: {
             type: Number,
             required: true
         }

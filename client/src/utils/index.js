@@ -40,7 +40,7 @@ export const getMonths = () => {
   return months.map((children, i) => ({ value: i, children }))
 }
 
-export const getAge = ({ day, month, year }) => {
+export const getAge = ({day, month, year}) => {
   const { day: sysDay, month: sysMonth, year: sysYear } = getDateSystem()
 
   let age = sysYear - year

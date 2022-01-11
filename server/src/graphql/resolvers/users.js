@@ -39,17 +39,10 @@ const userResolvers = {
             }
         },
         addUser: async(root, args)=> {
-            let {
-                name,
-                lastname,
-                email,
-                password, 
-                dayOfBirth,
-                monthOfBirth,
-                yearOfBith,
-                sexId,
-                sexType} = args.registerInput;
+            let {name,lastname,email,password} = args.registerInput;
+            let {day, month, year} = args.registerInput.birth;
             const UserDoc=await User.find({email})
+            console.log(args.registerInput);
             if (UserDoc.length !== 0) {
                 return {
                     msg: "USER_ALREADY_EXISTS"
@@ -64,9 +57,9 @@ const userResolvers = {
                     email,
                     password,
                     birth: {
-                        dayOfBirth,
-                        monthOfBirth,
-                        yearOfBith
+                        day,
+                        month,
+                        year
                     },
                     sex: {
                         sexId,
@@ -74,7 +67,6 @@ const userResolvers = {
                     },
                     levelUser
                 })
-                console.log(password);
                 console.log(newUser);
                 return {
                     msg: "USER_REGISTRED_SUCCESS"

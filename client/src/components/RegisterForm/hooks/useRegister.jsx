@@ -11,36 +11,53 @@ const initialValues = {
   gender: { id: NOT_GENDER, custom: NOT_PRONOUN, name: '' }
 }
 
-const validateValues = ({ name, lastname, email, password, date, gender }) => {
+const validateValues = ({
+  name,
+  lastname, 
+  email,
+  password,
+  birth: {
+    day,
+    month,
+    year
+  },
+  gender:{
+    sexId,
+    sexType
+  } }) => {
   const errors = {}
-
+  errors.register= true;
   if (!regexs.name.test(name)) {
     errors.name = '¿Cómo te llamas?'
+    errors.register= false
   }
 
   if (!regexs.name.test(lastname)) {
     errors.lastname = '¿Cómo te llamas?'
+    errors.register= false
   }
 
   if (!regexs.email.test(email)) {
-    errors.email =
-      'Ingresa un número de teléfono celular o una dirección de correo electrónico válidos.'
+    errors.email = 'Ingresa un número de teléfono celular o una dirección de correo electrónico válidos.'
+    errors.register= false
   }
 
   if (!regexs.password.test(password)) {
-    errors.password =
-      'Ingresa una combinación de al menos seis números, letras y signos de puntuación (como ! y &).'
+    errors.password = 'Ingresa una combinación de al menos seis números, letras y signos de puntuación (como ! y &).'
+    errors.register= false
   }
 
-  if (!(getAge(date) > MIN_AGE)) {
-    errors.date =
-      'Parece que la información que ingresaste no es correcta. Asegúrate de usar tu fecha de nacimiento real.'
+  if (!(getAge({day, month, year}) > MIN_AGE)) {
+    errors.date = 'Parece que la información que ingresaste no es correcta. Asegúrate de usar tu fecha de nacimiento real.'
+    errors.register= false
   }
 
-  if (gender.id === NOT_GENDER) {
+  if (sexId === NOT_GENDER) {
     errors.gender = 'Elige un género. Podrás cambiar quién puede verlo más tarde.'
-  } else if (gender.id === OTHER_GENDER && gender.custom === NOT_PRONOUN)
+    errors.register= false
+  } else if (sexId === OTHER_GENDER && sexType === NOT_PRONOUN)
     errors.gender = 'Por favor selecciona tu pronombre'
+    errors.register= false
 
   return errors
 }

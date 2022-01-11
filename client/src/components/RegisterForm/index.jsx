@@ -28,7 +28,26 @@ const RegisterForm = ({ handleClose }) => {
   })
 
   const validateForm = () => {
-    register()
+    const rs= validateValues({
+      name: fields.name.value,
+      lastname: fields.lastname.value,
+      email: fields.email.value,
+      password: fields.password.value,
+      birth: {
+        day: fields.date.value.day,
+        month: fields.date.value.month,
+        year: fields.date.value.year,
+      },
+      gender: {
+        sexId: fields.gender.value.id,
+        sexType: fields.gender.value.name
+      }
+    })
+    if (rs.register) {
+      register() 
+    } else {
+      
+    }
   }
   return (
     <div className="register-form__wrapper">
