@@ -15,3 +15,8 @@ This project is an exact replica or as close as possible to the social network F
 * 005 - Empty field: password
 * 006 - Empty field: Gender
 * 007 - Incorrect date
+
+## Screenshots
+
+<img src="screenshots/home.jpg">Home
+<img src="screenshots/Register.jpg">Register modal
