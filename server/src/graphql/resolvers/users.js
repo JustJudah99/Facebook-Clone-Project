@@ -39,8 +39,9 @@ const userResolvers = {
             }
         },
         addUser: async(root, args)=> {
-            let {name,lastname,email,password} = args.registerInput;
-            let {day, month, year} = args.registerInput.birth;
+            const {name,lastname,email,password} = args.registerInput;
+            const {day, month, year} = args.registerInput.birth;
+	    const { sexId, sexType } = args.registerInput.sex;
             const UserDoc=await User.find({email})
             console.log(args.registerInput);
             if (UserDoc.length !== 0) {
