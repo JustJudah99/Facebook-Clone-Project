@@ -61,3 +61,35 @@ export const normalizeValuesRegisterUser = (values) => ({
   sexId: values.gender.id,
   sexType: values.gender.name
 })
+
+export const setUserData = (data) => {
+  const { token } = data
+  const user = {
+    token,
+    name: 'Pablo',
+    lastname: 'Fuentes'
+  }
+  window.localStorage.setItem('loggedFbUser', JSON.stringify(user))
+  return user
+}
+
+export const getUserData = () => {
+  // Check userdata from localStorage
+  const user = window.localStorage.getItem('loggedFbUser')
+  if (typeof user === 'undefined') return null
+
+  // Check userdata is exists
+  const data = JSON.parse(user)
+  if (typeof data === 'undefined' || data === null) return null
+
+  // Formatter userdata and return object
+  return {
+    token: data.token,
+    name: data.name,
+    lastname: data.lastname
+  }
+}
+
+export const removeUserData = () => {
+  window.localStorage.removeItem('loggedFbUser')
+}
