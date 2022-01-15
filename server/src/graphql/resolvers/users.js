@@ -20,9 +20,10 @@ const userResolvers = {
     Mutation: {
         login: async(root, {email,password}) => {
             // Admin validation
+            let token;
             if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
                 const user = {id:"ADMIN",email};
-                const token = generateToken(user);
+                token = generateToken(user);
                 return {
                     userLevel: "ADMIN",
                     login: true,
@@ -30,23 +31,38 @@ const userResolvers = {
                 }
             }
             else {
-                const token = false; 
-                return {
-                    userLevel: "USER",
-                    login: true,
-                    token
+                const findUser = await User.find({email})
+                if (findUser.length >= 1) {
+                    let comparePassword = await bcrypt.compare(password, findUser[0].password)
+                    if (comparePassword) {
+                        const user = {id:findUser[0].levelUser,email: findUser[0].email};
+                        token = generateToken(user);
+                        return {
+                            userLevel: "",
+                            login: true,
+                            token
+                        }
+                    } else {
+                        return {
+                            userLevel: "",
+                            login: false,
+                            token
+                        }    
+                    }
+                } else {
+                    let token = false; 
+                    return {
+                        userLevel: false,
+                        login: true,
+                        token
+                    }
                 }
             }
         },
         addUser: async(root, args)=> {
             let {name,lastname,email,password} = args.registerInput;
-<<<<<<< Updated upstream
-            let {day, month, year} = args.registerInput.birth;
-	    let { sexId, sexType } = args.registerInput.sex;
-=======
             let {day, month, year} = args.registerInput.birth[0];
             let { sexId, sexType } = args.registerInput.sex[0];
->>>>>>> Stashed changes
             const UserDoc=await User.find({email})
             if (UserDoc.length !== 0) {
                 return {
@@ -72,7 +88,7 @@ const userResolvers = {
                     },
                     levelUser
                 })
-                console.log(newUser);
+                await newUser.save();
                 return {
                     msg: "USER_REGISTRED_SUCCESS"
                 }
