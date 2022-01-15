@@ -40,10 +40,14 @@ const userResolvers = {
         },
         addUser: async(root, args)=> {
             let {name,lastname,email,password} = args.registerInput;
+<<<<<<< Updated upstream
             let {day, month, year} = args.registerInput.birth;
 	    let { sexId, sexType } = args.registerInput.sex;
+=======
+            let {day, month, year} = args.registerInput.birth[0];
+            let { sexId, sexType } = args.registerInput.sex[0];
+>>>>>>> Stashed changes
             const UserDoc=await User.find({email})
-            console.log(args.registerInput);
             if (UserDoc.length !== 0) {
                 return {
                     msg: "USER_ALREADY_EXISTS"

@@ -7,19 +7,6 @@ import typeDefs from './graphql/typeDefs.js';
 const port = process.env.APOLLO_SERVER_PORT || 8000;
 const MONGO_URI = process.env.MONGODB;
 
-const User = [
-  {
-    name: "Robert",
-    email: "robert@admin.com",
-    password: "12345678"
-  },
-  {
-    name: "Brian",
-    email: "brian@admin.com",
-    password: "12345678"
-  },
-]
-
 const server = new ApolloServer({ typeDefs, resolvers });
 
 mongoose.connect(MONGO_URI, {useNewUrlParser: true})

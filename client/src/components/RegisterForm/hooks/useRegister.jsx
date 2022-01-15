@@ -62,7 +62,14 @@ function useRegister() {
     variables: normalizeValuesRegisterUser(values),
     onCompleted: (res) => {
       console.log('Registrado')
-      console.log({ data, res })
+      switch (res.addUser.msg) {
+        case 'USER_REGISTRED_SUCCESS':
+          alert('Se ha registrado exitosamente')
+          window.location.href = '/'
+          break
+        default:
+          break
+      }
     },
     onError(err) {
       console.log({ err })

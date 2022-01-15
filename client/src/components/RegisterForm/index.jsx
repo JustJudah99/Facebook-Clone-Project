@@ -35,7 +35,7 @@ const RegisterForm = ({ handleClose }) => {
           <GenderField {...fields.gender} />
           <PoliciesSection />
           <div className="register-form__wrapper-btn">
-            <button type="click" className="register-form__btn-submit">
+            <button type="submit" className="register-form__btn-submit">
               Registrarse
             </button>
           </div>

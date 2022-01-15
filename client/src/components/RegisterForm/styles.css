@@ -272,3 +272,8 @@
   min-width: 194px;
   text-align: center;
 }
+
+::-webkit-validation-bubble-message {
+  color: red;
+  background-color: #00a400;
+}

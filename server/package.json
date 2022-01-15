@@ -5,7 +5,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src"
+    "dev": "nodemon src",
+    "eslint": "eslint src"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "dotenv": "^10.0.0",
+    "eslint": "^8.6.0",
     "nodemon": "^2.0.15"
   }
 }
