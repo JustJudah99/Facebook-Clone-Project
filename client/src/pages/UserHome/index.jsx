@@ -4,6 +4,7 @@ import { useUser } from '../../hooks/useUser'
 
 const UserHome = () => {
   const { handelLogout } = useUser()
+  document.title = "Facebook"
   return (
     <div>
       <Navbar />

@@ -2,8 +2,6 @@ import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/c
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
-import { UIContextProvider } from './context/UIContext'
-import { UserContextProvider } from './context/UserContext'
 import './index.css'
 
 const client = new ApolloClient({
@@ -15,11 +13,7 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <UserContextProvider>
-      <UIContextProvider>
-        <App />
-      </UIContextProvider>
-    </UserContextProvider>
+    <App />
   </ApolloProvider>,
   document.getElementById('root')
 )

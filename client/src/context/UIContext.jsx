@@ -1,20 +1,15 @@
-import React, { useState } from 'react'
-
-const UIContext = React.createContext({})
-
-export function UIContextProvider({ children }) {
-  const [theme, setTheme] = useState(window.sessionStorage.getItem('fbTheme') ?? 'LIGHT_MODE')
-
-  return (
-    <UIContext.Provider
-      value={{
-        theme,
-        setTheme
-      }}
-    >
-      {children}
-    </UIContext.Provider>
-  )
+export const initialUIState = {
+  darkMode: false,
 }
 
-export default UIContext
+export const UIReducer = (state, action) => {
+  switch (action.type) {
+    case 'SET_DARK_MODE':
+      return {
+        ...state,
+        darkMode: action.payload,
+      }
+    default:
+      throw new Error(`action type ${action.type} is undefined`)
+  }
+}

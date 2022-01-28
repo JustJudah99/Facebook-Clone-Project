@@ -1,20 +1,20 @@
 {
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": false,
+    "codeFrame": false
+  },
+  "extends": ["airbnb", "prettier"],
   "env": {
     "browser": true,
-    "es2021": true
+    "jest": true
   },
-  "extends": ["plugin:react/recommended", "standard", "prettier"],
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "ecmaVersion": "latest",
-    "sourceType": "module"
-  },
-  "plugins": ["react", "prettier"],
   "rules": {
-    "prettier/prettier": ["error", {}, { "usePrettierrc": true }],
-    "react/prop-types": "off",
-    "react/react-in-jsx-scope": "off"
+    "max-len": ["error", {"code": 100}],
+    "prefer-promise-reject-errors": ["off"],
+    "react/jsx-filename-extension": ["off"],
+    "react/prop-types": ["warn"],
+    "no-return-assign": ["off"]
   }
 }
